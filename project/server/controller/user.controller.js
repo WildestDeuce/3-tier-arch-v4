@@ -6,7 +6,7 @@ const userController = express.Router();
 
 //Get to retrieve and display all Users in the User model
 
-userController.get('/', (res, req) => {
+userController.get('/', (req, res) => {
   User.find({}, (err, result) => {
     res.status(200).json({
       data:result
@@ -17,10 +17,11 @@ userController.get('/', (res, req) => {
 //Post Add a new user to database
 userController.post('/add-user', (req, res) => {
   const { email, password } = req.body;
+  console.log('Post received');
 
   const userData = {
     email,
-    hashedpassword: sha256(password)
+    hashedPassword: sha256(password)
   };
   const newUser = new User(userData);
   newUser
